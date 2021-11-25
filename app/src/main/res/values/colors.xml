@@ -6,9 +6,18 @@
     <color name="teal_200">#FFD556</color>
     <color name="teal_700">#FF9800</color>
 
-    <color name="main_color">#0035ad</color>
-    <color name="sub_color">#5d7fff</color>
-    <color name="gray">#d5d5d5</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    // light mode
+    <color name="light_main">#0052e7</color>
+    <color name="light_sub">#5683d6</color>
+    <color name="light_bg">#ffffff</color>
+
+    // dark mode
+    <color name="dark_main">#c0d6ff</color>
+    <color name="dark_sub">#639aff</color>
+    <color name="dark_bg">#2c2e35</color>
+
+    // basic
+    <color name="gray">#9d9d9e</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

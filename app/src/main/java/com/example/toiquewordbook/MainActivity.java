@@ -13,18 +13,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView daily_word;  // 홈화면 오늘의 영단어
-    TextView daily_meaning; // 홈화면 오늘의 영단어 뜻
-    ProgressBar total_progressbar; // 홈화면 학습진행율
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        daily_word = (TextView) findViewById(R.id.daily_word);
-        daily_meaning = (TextView) findViewById(R.id.daily_meaning);
-        total_progressbar = (ProgressBar) findViewById(R.id.total_progressbar);
 
         // 프래그먼트 객체 선언
         Fragment wordbookFragment= new WordbookFragment();
@@ -59,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 홈화면 진도율 표시... 아래 줄 주석 풀면 앱 실행 안됨 ㅠ
-        //total_progressbar.setProgress(30);
     }
 
 }

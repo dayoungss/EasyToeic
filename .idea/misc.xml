@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/font-v26/custom_font.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/font/custom_font.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/layout/fragment_quiz.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/layout/fragment_settings.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/menu/bottom_tab.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/dayoung/Desktop/android workspace/ToiqueWordbook/app/src/main/res/layout/fragment_mybook.xml" value="0.1" />
         <entry key="..\:/Users/dayoung/Desktop/android workspace/ToiqueWordbook/app/src/main/res/menu/bottom_tab.xml" value="0.17916666666666667" />
       </map>

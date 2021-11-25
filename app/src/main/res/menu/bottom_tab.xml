@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/tab3"
-        android:icon="@drawable/fav_icon"
+        android:icon="@drawable/star_icon"
         android:title="나만의 단어장">
     </item>
 
