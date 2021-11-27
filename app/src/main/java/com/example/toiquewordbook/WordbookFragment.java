@@ -18,7 +18,7 @@ public class WordbookFragment extends Fragment {
 
 
 
-    private ArrayList<com.example.toeic.dayData> arrayList;
+    private ArrayList<com.example.toiquewordbook.dayData> arrayList;
     private com.example.toiquewordbook.Dayadapter dayadapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -30,7 +30,7 @@ public class WordbookFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_wordbook,container,false);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
 
 
         recyclerView=(RecyclerView) v.findViewById(R.id.rv);
@@ -40,7 +40,7 @@ public class WordbookFragment extends Fragment {
         arrayList=new ArrayList<>();
 
         for (int i =1;i<=40;i++){
-            arrayList.add(new com.example.toeic.dayData("Day"+i));
+            arrayList.add(new com.example.toiquewordbook.dayData("Day"+i));
         }
 
 
@@ -48,11 +48,10 @@ public class WordbookFragment extends Fragment {
 
         recyclerView.setAdapter(dayadapter);
 
-        return inflater.inflate(R.layout.fragment_wordbook, container, false);
+        return v;
 
     }
 
-    private void setContentView(int activity_main) {
-    }
+
 
 }

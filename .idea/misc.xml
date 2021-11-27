@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/EasyToeic-dayoung/app/src/main/res/layout/activity_main.xml" value="0.2046875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/EasyToeic-dayoung/app/src/main/res/layout/fragment_home.xml" value="0.2046875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/EasyToeic-dayoung/app/src/main/res/layout/fragment_quiz.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/EasyToeic-dayoung/app/src/main/res/layout/fragment_settings.xml" value="0.2046875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/EasyToeic-dayoung/app/src/main/res/layout/fragment_wordbook.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/font-v26/custom_font.xml" value="0.1" />
         <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/font/custom_font.xml" value="0.1" />

@@ -1,4 +1,4 @@
-package com.example.toeic;
+package com.example.toiquewordbook;
 
 import android.widget.Button;
 

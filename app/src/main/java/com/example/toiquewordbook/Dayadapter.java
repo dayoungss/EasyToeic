@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder> {
 
-    private ArrayList<com.example.toeic.dayData> arrayList;
+    private ArrayList<com.example.toiquewordbook.dayData> arrayList;
 
 
-    public Dayadapter(ArrayList<com.example.toeic.dayData> arrayList) {
+    public Dayadapter(ArrayList<com.example.toiquewordbook.dayData> arrayList) {
         this.arrayList = arrayList;
     }
 
@@ -51,13 +51,13 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
         return (null != arrayList ? arrayList.size():0);
     }
 
-    public ArrayList<com.example.toeic.dayData>getArrayList(){
+    public ArrayList<com.example.toiquewordbook.dayData>getArrayList(){
         return arrayList;
     }
-    public void setArrayList(ArrayList<com.example.toeic.dayData>dayData){
+    public void setArrayList(ArrayList<com.example.toiquewordbook.dayData>dayData){
         this.arrayList=dayData;
     }
-    public void addItem(com.example.toeic.dayData data){
+    public void addItem(com.example.toiquewordbook.dayData data){
         arrayList.add(data);
     }
 
