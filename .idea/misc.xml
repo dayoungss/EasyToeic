@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/activity_main.xml" value="0.271875" />
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/dayitem.xml" value="0.23550724637681159" />
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/fragment_callwords.xml" value="0.23550724637681159" />
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/fragment_worditem.xml" value="0.271875" />
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/fragment_wordlist.xml" value="0.271875" />
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/wordinfo.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/wordlist_recyclerview.xml" value="0.18568840579710144" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable-v24/circle_progressbar.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable/ic_launcher_background.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable/progressbar.xml" value="0.1796875" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable/selector_correct.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable/selector_pressed.xml" value="0.1953125" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable/selector_wrong.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/font/custom_font.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/activity_main.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/activity_quiz.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/dayitem.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_callwords.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_exam.xml" value="0.14895833333333333" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_mybook.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_quiz.xml" value="0.17326732673267325" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_review.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_settings.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_word.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_wordbook.xml" value="0.12" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_worditem.xml" value="0.13722826086956522" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/fragment_wordlist.xml" value="0.12" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/layout.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/layout_child.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/layout_parent.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/layout/wordlist_recyclerview.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/menu/bottom_tab.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/font-v26/custom_font.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/font/custom_font.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/layout/fragment_quiz.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/layout/fragment_settings.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic/app/src/main/res/menu/bottom_tab.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/ToiqueWordbook/app/src/main/res/layout/fragment_mybook.xml" value="0.1" />
+        <entry key="..\:/Users/dayoung/Desktop/android workspace/ToiqueWordbook/app/src/main/res/menu/bottom_tab.xml" value="0.17916666666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
