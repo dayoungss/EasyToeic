@@ -40,8 +40,6 @@ public class CallWord extends Activity {
         wordAdapter = new Wordadapter(arrayList);
         recyclerView.setAdapter(wordAdapter);
 
-
-
     }
 
 

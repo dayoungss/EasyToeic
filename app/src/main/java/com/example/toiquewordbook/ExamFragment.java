@@ -212,7 +212,7 @@ public class ExamFragment extends Fragment {
             return true;
         }
         else {
-            bt[btPressed].setBackgroundResource(R.drawable.selector_wrong);
+            if (btPressed!=0) bt[btPressed].setBackgroundResource(R.drawable.selector_wrong);
             bt[btPressed].setPressed(true);
             return false;
         }
