@@ -37,7 +37,7 @@ public class ExamFragment extends Fragment {
     private TextView quiz_question;
     private Button bt[] = new Button[4];
     private Button btNext, btEnd;
-    private boolean btPressed[] = new boolean[4];
+    private int btPressed=0;
     private ProgressBar quiz_progressbar;
     private int day; // 날짜
     private int N=10; // 전체 문제 수
@@ -73,11 +73,9 @@ public class ExamFragment extends Fragment {
         bt[1].setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (btPressed[2]) bt[2].setPressed(false);
-                if (btPressed[3]) bt[3].setPressed(false);
-                btPressed[1] = true;
-                btPressed[2]=false;
-                btPressed[3]=false;
+                if (btPressed==2) bt[2].setPressed(false);
+                if (btPressed==3) bt[3].setPressed(false);
+                btPressed=1;
                 bt[1].setPressed(true);
                 bt[1].setTextColor(getResources().getColor(R.color.background));
                 bt[2].setTextColor(getResources().getColor(R.color.icon_color));
@@ -89,11 +87,9 @@ public class ExamFragment extends Fragment {
         bt[2].setOnTouchListener( new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (btPressed[1]) bt[1].setPressed(false);
-                if (btPressed[3]) bt[3].setPressed(false);
-                btPressed[2] = true;
-                btPressed[1]=false;
-                btPressed[3]=false;
+                if (btPressed==1) bt[1].setPressed(false);
+                if (btPressed==3) bt[3].setPressed(false);
+                btPressed=2;
                 bt[2].setPressed(true);
                 bt[1].setTextColor(getResources().getColor(R.color.icon_color));
                 bt[2].setTextColor(getResources().getColor(R.color.background));
@@ -105,11 +101,9 @@ public class ExamFragment extends Fragment {
         bt[3].setOnTouchListener( new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (btPressed[1]) bt[1].setPressed(false);
-                if (btPressed[2]) bt[2].setPressed(false);
-                btPressed[3] = true;
-                btPressed[1]=false;
-                btPressed[2]=false;
+                if (btPressed==1) bt[1].setPressed(false);
+                if (btPressed==2) bt[2].setPressed(false);
+                btPressed=3;
                 bt[3].setPressed(true);
                 bt[1].setTextColor(getResources().getColor(R.color.icon_color));
                 bt[2].setTextColor(getResources().getColor(R.color.icon_color));
@@ -130,16 +124,16 @@ public class ExamFragment extends Fragment {
                     public void run() {
                         // 실행할 동작 코딩
                         makeQuestion();
+                        for (int i=1; i<=3; i++) {
+                            bt[i].setPressed(false);
+                            bt[i].setTextColor(getResources().getColor(R.color.icon_color));
+                            bt[i].setBackgroundResource(R.drawable.selector_pressed);
+                        }
+                        btPressed=0;
                         mHandler.sendEmptyMessage(0);	// 실행이 끝난후 알림
                     }
-                }, 5000);
+                }, 1000);
 
-                for (int i=1; i<=3; i++) {
-                    bt[i].setPressed(false);
-                    btPressed[i] = false;
-                    bt[i].setTextColor(getResources().getColor(R.color.icon_color));
-                    bt[i].setBackgroundResource(R.drawable.selector_pressed);
-                }
 
 
             }
@@ -150,7 +144,16 @@ public class ExamFragment extends Fragment {
         btEnd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                quizActivity.changeFragment();
+                checkAnswer();
+                Handler mHandler = new Handler();
+                new Handler().postDelayed(new Runnable() {// 1 초 후에 실행
+                    @Override
+                    public void run() {
+                        // 실행할 동작 코딩
+                        quizActivity.changeFragment();
+
+                    }
+                }, 1000);
             }
         });
 
@@ -201,14 +204,17 @@ public class ExamFragment extends Fragment {
         bt[3].setText(choice[3]);
     }
 
-    public void checkAnswer (){
-        if (btPressed[answerIndex]){
-            bt[answerIndex].setBackgroundResource(R.drawable.selector_correct);
+    public boolean checkAnswer (){
+        bt[answerIndex].setBackgroundResource(R.drawable.selector_correct);
+        bt[answerIndex].setPressed(true);
+        if (btPressed==answerIndex){
             quizActivity.score++;
+            return true;
         }
         else {
-            bt[answerIndex].setBackgroundResource(R.drawable.selector_wrong);
+            bt[btPressed].setBackgroundResource(R.drawable.selector_wrong);
+            bt[btPressed].setPressed(true);
+            return false;
         }
-
     }
 }
