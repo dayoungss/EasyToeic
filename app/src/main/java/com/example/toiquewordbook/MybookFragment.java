@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class MybookFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
-    private WordListAdapter adapter;
+    private Wordadapter adapter;
     private ArrayList<Word> list;
     private DBQueryManager checkedWordList = new DBQueryManager("CHECKED");
 
@@ -37,7 +37,7 @@ public class MybookFragment extends Fragment implements View.OnClickListener {
 
         list = checkedWordList.getWordList(getContext());
         recyclerView.setHasFixedSize(true);
-        adapter = new WordListAdapter(getActivity(), list);
+        adapter = new Wordadapter(list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
