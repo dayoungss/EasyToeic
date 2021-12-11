@@ -24,8 +24,28 @@ public class DBQueryManager {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
+
+        cursor.moveToNext();
         mean = cursor.getString(0);
         return mean;
+    }
+
+    public void copyWordToChecked(Context context, String eng) {
+        Word word;
+        DBOpenHelper dbHelper = new DBOpenHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        word = getSameEngWord(context, eng);
+        String query = "INSERT INTO CHECKED VALUES ("+getMaxWordId(context)+", '"+word.getEng()+"', '"+word.getEngpron()+"', '"+word.getKor()+"', '"+word.getSentence()+"')";
+
+        db.execSQL(query);
+    }
+
+    public void deleteWordFromChecked(Context context, String eng) {
+        DBOpenHelper dbHelper = new DBOpenHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "DELETE FROM CHECKED WHERE eng = '"+eng+"'";
+
+        db.execSQL(query);
     }
 
     public ArrayList<Word> getWordList(Context context) {

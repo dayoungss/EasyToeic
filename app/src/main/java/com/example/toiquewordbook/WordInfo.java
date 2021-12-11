@@ -3,6 +3,7 @@ package com.example.toiquewordbook;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -23,8 +24,10 @@ public class WordInfo extends Activity {
         Word targetWord;
 
         Intent intent = getIntent();
-        DBQueryManager checkedDBManager = new DBQueryManager("CHECKED");
+        //DBQueryManager checkedDBManager = new DBQueryManager("CHECKED");
+        DBQueryManager checkedDBManager = new DBQueryManager(intent.getStringExtra("table"));
         targetWord = checkedDBManager.getSameEngWord(this, intent.getStringExtra("WORDINFO"));
+        Log.d("day_WORDINFO", intent.getStringExtra("table"));
 
         eng.setText(targetWord.getEng());
         engpron.setText("["+targetWord.getEngpron()+"]");

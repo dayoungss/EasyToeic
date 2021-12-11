@@ -10,6 +10,11 @@
         <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/fragment_wordlist.xml" value="0.271875" />
         <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/wordinfo.xml" value="0.17806484295845998" />
         <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/EasyToeic-dayoung/app/src/main/res/layout/wordlist_recyclerview.xml" value="0.18568840579710144" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/app/src/main/res/layout/fragment_wordbook.xml" value="0.18568840579710144" />
+        <entry key="..\:/Users/HOME/Desktop/EasyToeic-dayoung/app/src/main/res/layout/fragment_worditem.xml" value="0.18568840579710144" />
+>>>>>>> bd136b6b629a4cb713d8fc36d830da27e5f0d458
         <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable-v24/circle_progressbar.xml" value="0.14791666666666667" />
         <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/dayoung/Desktop/android workspace/EasyToeic-dayoung/app/src/main/res/drawable/ic_launcher_background.xml" value="0.16944444444444445" />

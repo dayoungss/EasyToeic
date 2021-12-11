@@ -1,7 +1,9 @@
 package com.example.toiquewordbook;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,10 +39,10 @@ public class MybookFragment extends Fragment implements View.OnClickListener {
 
         list = checkedWordList.getWordList(getContext());
         recyclerView.setHasFixedSize(true);
-        adapter = new Wordadapter(list);
+
+        adapter = new Wordadapter(list, "CHECKED", getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-
 
         Log.e("Frag", "MainFragment");
         return rootView;

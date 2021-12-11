@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,8 +45,11 @@ public class ExamFragment extends Fragment {
     private int cnt=1; // 푼 문제 수
     private int answerIndex; //정답이 있는 인덱스
 
-    Context mcontext;
+    private String dayString;
+    ArrayList<Word> wordArrayList = new ArrayList<>();
+    DBQueryManager dayManager;
 
+    Context mcontext;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -67,6 +71,10 @@ public class ExamFragment extends Fragment {
         btEnd = (Button) v.findViewById(R.id.btEnd);
         quiz_progressbar = (ProgressBar) v.findViewById(R.id.quiz_progressbar);
         day = quizActivity.getDay();
+
+        dayString = "DAY_" + day;
+        dayManager = new DBQueryManager(dayString);
+        wordArrayList = dayManager.getWordList(mcontext);
         makeQuestion();
 
         // 버튼이 하나만 선택되도록 하는 함수
@@ -161,6 +169,17 @@ public class ExamFragment extends Fragment {
 
     }
 
+
+    private int intFilter(int n) {
+        if(n==4)
+            return 1;
+        else if (n==5)
+            return 2;
+        else
+            return n;
+    }
+
+
     //next 버튼 누르면 단어 변경하는거
     public void makeQuestion() {
         String question,answer;
@@ -175,26 +194,26 @@ public class ExamFragment extends Fragment {
         }
 
         /********이 아래 코드 변경*************/
-        // DB에서 랜덤 단어 선택
-        // String 초기화
-        question="apple";
-        answer="사과";
+
+        // DB에서 _id순? 알파벳순 순차 단어 선택
+        question=wordArrayList.get(cnt-2).getEng();
+        answer=wordArrayList.get(cnt-2).getKor();
         /*********************/
+
+
 
         Random rand = new Random();
-        //answerIndex = rand.nextInt(3)+1;
-        answerIndex=1;
+        answerIndex = rand.nextInt(3)+1; //1,2,3중 1개 랜덤
 
-        /********이 아래 코드 삭제*************/
-        choice[1]=answer;
-        choice[2]="바나나";
-        choice[3]="포도";
-        /*********************/
+        choice[answerIndex]=answer;
+        choice[intFilter(answerIndex+1)]="tmp";
+        choice[intFilter(answerIndex+2)]="tmp";
+
+
 
         for(int i=1; i<=3; i++) {
-            if (choice[i]!="answer") {
-                // DB에서 랜덤 오답 추출
-                // choice[i] = "...";
+            if (!choice[i].equals(answer)) {
+                choice[i] = DBQueryManager.getRandomMeans(mcontext);
             }
         }
 
@@ -212,7 +231,8 @@ public class ExamFragment extends Fragment {
             return true;
         }
         else {
-            if (btPressed!=0) bt[btPressed].setBackgroundResource(R.drawable.selector_wrong);
+
+            if(btPressed!=0) bt[btPressed].setBackgroundResource(R.drawable.selector_wrong);
             bt[btPressed].setPressed(true);
             return false;
         }

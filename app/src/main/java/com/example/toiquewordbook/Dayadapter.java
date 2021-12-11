@@ -2,6 +2,7 @@ package com.example.toiquewordbook;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,6 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
                         Intent intent = new Intent (mContext, CallWord.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         // 어떤 날짜의 단어장인지 넘겨야 함
                         intent.putExtra("day", arrayList.get(pos).getDayString());
-
                         mContext.startActivity(intent);
                     }
                 }
@@ -109,7 +109,6 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
                         Intent intent = new Intent (mContext, QuizActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         // 어떤 날짜의 퀴즈인지 퀴즈 액티비티에 넘겨야 함
                         intent.putExtra("day", arrayList.get(pos).getDay());
-
                         mContext.startActivity(intent);
                     }
 

@@ -1,7 +1,9 @@
 package com.example.toiquewordbook;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +17,18 @@ import java.util.ArrayList;
 
 public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHolder>{
 
-
-
     private Context context;
     private ArrayList<Word> wordList;
     boolean checkChecked = false;
     boolean mywordChecked = false;
+    private String day;
 
+    private DBQueryManager manager = new DBQueryManager("DAY_1");
 
-    public Wordadapter(ArrayList<Word> wordList){
+    public Wordadapter(ArrayList<Word> wordList, String day, Context context){
         this.wordList = wordList;
         this.context= context;
+        this.day = day;
     }
 
     @NonNull
@@ -46,9 +49,12 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),WordInfo.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent (context, WordInfo.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("WORDINFO", wordList.get(holder.getAdapterPosition()).getEng());
+                intent.putExtra("table", day);
+
                 view.getContext().startActivity(intent);
+
             }
         });
 
@@ -83,14 +89,19 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
             this.check.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    int pos = getAdapterPosition();
                     if (checkChecked){
                         check.setImageResource(R.drawable.check_icon);
                         checkChecked=false;
+                        manager.deleteWordFromChecked(context, "bear");
                     }
                     else {
                         check.setImageResource(R.drawable.check_icon_onclick);
                         checkChecked=true;
+
+                        manager.copyWordToChecked(context, "bear");
+
+
                     }
                 }
             });

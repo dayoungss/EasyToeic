@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class WordbookFragment extends Fragment {
 
-    private ArrayList<com.example.toiquewordbook.dayData> arrayList;
-    private com.example.toiquewordbook.Dayadapter dayadapter;
+    private ArrayList<dayData> arrayList;
+    private Dayadapter dayadapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
