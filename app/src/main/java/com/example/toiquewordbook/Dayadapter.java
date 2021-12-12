@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,7 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
     @Override
     public void onBindViewHolder(@NonNull Dayadapter.CustomViewHolder holder, int position) {
         holder.day.setText(arrayList.get(position).getDayString());
-
+        //holder.dailyProgressBar.setProgress();
         holder.itemView.setTag(position);
         /*
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,11 +81,16 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
 
         protected TextView day;
         protected Button btn;
+        protected ProgressBar dailyProgressBar;
+        protected TextView dailyProgressPercentage;
+
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.day=(TextView) itemView.findViewById(R.id.day);
             this.btn=(Button) itemView.findViewById(R.id.btn_quiz);
+            this.dailyProgressBar = (ProgressBar) itemView.findViewById(R.id.daily_progressbar);
+            this.dailyProgressPercentage=(TextView) itemView.findViewById(R.id.daily_progress_percentage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

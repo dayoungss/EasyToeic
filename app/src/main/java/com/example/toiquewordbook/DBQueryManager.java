@@ -16,7 +16,6 @@ public class DBQueryManager {
         this.TABLE = TABLE;
     }
 
-
     public static String getRandomMeans(Context context) {
         String mean;
         DBOpenHelper dbHelper = new DBOpenHelper(context);
@@ -30,20 +29,29 @@ public class DBQueryManager {
         return mean;
     }
 
-    public void copyWordToChecked(Context context, String eng) {
+    public void copyWordToMyWord(Context context, String eng) {
         Word word;
         DBOpenHelper dbHelper = new DBOpenHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         word = getSameEngWord(context, eng);
-        String query = "INSERT INTO CHECKED VALUES ("+getMaxWordId(context)+", '"+word.getEng()+"', '"+word.getEngpron()+"', '"+word.getKor()+"', '"+word.getSentence()+"')";
+        String input = word.getSentence();
+        String[] array = input.split("'");
+        String output="";
+        for(int i=0;i<array.length;i++) {
+            output+=array[i];
+            output+="''";
+        }
+
+        String query = "INSERT INTO MYWORD(eng, engpron, kor, sentence, checked, myword) VALUES ('"+word.getEng()+"', '"+word.getEngpron()+"', '"+word.getKor()+"', '"+output+"', "+word.getCheckedState()+", "+1+")";
+        Log.v("myword", "INSERTED " + word.getEng());
 
         db.execSQL(query);
     }
 
-    public void deleteWordFromChecked(Context context, String eng) {
+    public void deleteWordFromMyWord(Context context, String eng) {
         DBOpenHelper dbHelper = new DBOpenHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String query = "DELETE FROM CHECKED WHERE eng = '"+eng+"'";
+        String query = "DELETE FROM MYWORD WHERE eng = '"+eng+"'";
 
         db.execSQL(query);
     }
@@ -52,7 +60,7 @@ public class DBQueryManager {
         ArrayList<Word> resultList = new ArrayList<>();
 
         DBOpenHelper dbHelper = new DBOpenHelper(context);
-        String query = "SELECT _id, eng, engpron, kor, sentence FROM " + TABLE;
+        String query = "SELECT _id, eng, engpron, kor, sentence, checked, myword FROM " + TABLE + " ORDER BY eng ";
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         try {
@@ -61,7 +69,9 @@ public class DBQueryManager {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        cursor.getString(4));
+                        cursor.getString(4),
+                        cursor.getInt(5),
+                        cursor.getInt(6));
                 resultList.add(word);
             }
         } catch (Exception e) {
@@ -167,7 +177,7 @@ public class DBQueryManager {
 
         DBOpenHelper dbHelper = new DBOpenHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT _id, eng, engpron, kor, sentence FROM ";
+        String query = "SELECT _id, eng, engpron, kor, sentence, checked, myword FROM ";
         Cursor cursor = db.rawQuery(query + TABLE, null);
         Word word=null;
 
@@ -177,12 +187,42 @@ public class DBQueryManager {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        cursor.getString(4));
+                        cursor.getString(4),
+                        cursor.getInt(5),
+                        cursor.getInt(6));
                 dbHelper.close();
             }
         }
 
         return word;
+    }
+
+    public void deleteReviewTable(Context context){
+        DBOpenHelper dbHelper = new DBOpenHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete("REVIEW", null, null);
+        //String query = "ALTER TABLE review AUTO_INCREMENT=1001;";
+        //db.execSQL(query);
+        db.close();
+    }
+
+    public void copyWordToReview(Context context, String eng) {
+        Word word;
+        DBOpenHelper dbHelper = new DBOpenHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        word = getSameEngWord(context, eng);
+
+        String input = word.getSentence();
+        String[] array = input.split("'");
+        String output="";
+        for(int i=0;i<array.length;i++) {
+            output+=array[i];
+            output+="''";
+        }
+        Log.v("answer",output);
+        String query = "INSERT INTO REVIEW(eng, engpron, kor, sentence, checked, myword) VALUES ('"+word.getEng()+"', '"+word.getEngpron()+"', '"+word.getKor()+"', '"+output+"', "+word.getCheckedState()+", "+word.getMyWordState()+")";
+
+        db.execSQL(query);
     }
 
 }

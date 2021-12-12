@@ -7,14 +7,17 @@ public class Word {
     String kor;
     String engpron;
     String sentence;
+    int checked;
+    int myword;
 
-
-    public Word(int _id, String eng, String engpron, String kor, String sentence) {
+    public Word(int _id, String eng, String engpron, String kor, String sentence, int checked, int myword) {
         this._id = _id;
         this.eng = eng;
         this.kor = kor;
         this.engpron = engpron;
         this.sentence = sentence;
+        this.checked = checked;
+        this.myword = myword;
     }
 
     public int get_id() {
@@ -56,4 +59,23 @@ public class Word {
     public void setSentence(String sentence) {
         this.sentence = sentence;
     }
+
+    public boolean getCheckedState(){
+        if (checked==1) return true;
+        return false;
+    }
+
+    public void setCheckedState(int checked){
+        this.checked = checked;
+    }
+
+    public boolean getMyWordState(){
+        if (myword ==1) return true;
+        return false;
+    }
+
+    public void setMyWordState(int myword){
+        this.myword = myword;
+    }
+
 }

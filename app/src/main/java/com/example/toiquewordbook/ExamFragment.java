@@ -7,10 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.util.Log;
@@ -19,14 +16,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ExamFragment extends Fragment {
 
@@ -48,6 +42,7 @@ public class ExamFragment extends Fragment {
     private String dayString;
     ArrayList<Word> wordArrayList = new ArrayList<>();
     DBQueryManager dayManager;
+    String question,answer;
 
     Context mcontext;
 
@@ -74,6 +69,8 @@ public class ExamFragment extends Fragment {
 
         dayString = "DAY_" + day;
         dayManager = new DBQueryManager(dayString);
+        /* REVIEW table 초기화*/
+        dayManager.deleteReviewTable(mcontext);
         wordArrayList = dayManager.getWordList(mcontext);
         makeQuestion();
 
@@ -182,7 +179,6 @@ public class ExamFragment extends Fragment {
 
     //next 버튼 누르면 단어 변경하는거
     public void makeQuestion() {
-        String question,answer;
         String[] choice = new String[4];
         // 문제 정답 확인하기
 
@@ -209,8 +205,6 @@ public class ExamFragment extends Fragment {
         choice[intFilter(answerIndex+1)]="tmp";
         choice[intFilter(answerIndex+2)]="tmp";
 
-
-
         for(int i=1; i<=3; i++) {
             if (!choice[i].equals(answer)) {
                 choice[i] = DBQueryManager.getRandomMeans(mcontext);
@@ -231,9 +225,14 @@ public class ExamFragment extends Fragment {
             return true;
         }
         else {
+            if(btPressed!=0) {
+                bt[btPressed].setBackgroundResource(R.drawable.selector_wrong);
+                bt[btPressed].setPressed(true);
+            }
+            /* 틀린 단어 REVIEW table 에 추가 */
+            Log.v("answer", question);
+            dayManager.copyWordToReview(getContext(), question);
 
-            if(btPressed!=0) bt[btPressed].setBackgroundResource(R.drawable.selector_wrong);
-            bt[btPressed].setPressed(true);
             return false;
         }
     }

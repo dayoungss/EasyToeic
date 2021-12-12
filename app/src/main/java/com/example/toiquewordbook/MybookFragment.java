@@ -27,7 +27,7 @@ public class MybookFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private Wordadapter adapter;
     private ArrayList<Word> list;
-    private DBQueryManager checkedWordList = new DBQueryManager("CHECKED");
+    private DBQueryManager checkedWordList = new DBQueryManager("MYWORD");
 
     @Nullable
     @Override
@@ -40,7 +40,7 @@ public class MybookFragment extends Fragment implements View.OnClickListener {
         list = checkedWordList.getWordList(getContext());
         recyclerView.setHasFixedSize(true);
 
-        adapter = new Wordadapter(list, "CHECKED", getContext());
+        adapter = new Wordadapter(list, "MYWORD", getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 

@@ -1,6 +1,7 @@
 package com.example.toiquewordbook;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -11,24 +12,29 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHolder>{
 
+
+
     private Context context;
     private ArrayList<Word> wordList;
-    boolean checkChecked = false;
-    boolean mywordChecked = false;
     private String day;
 
-    private DBQueryManager manager = new DBQueryManager("DAY_1");
+    private DBQueryManager manager;
 
     public Wordadapter(ArrayList<Word> wordList, String day, Context context){
         this.wordList = wordList;
         this.context= context;
         this.day = day;
+        manager = new DBQueryManager(day);
     }
 
     @NonNull
@@ -44,21 +50,29 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
     public void onBindViewHolder(@NonNull Wordadapter.CustomViewHolder holder, int position) {
         holder.word.setText(wordList.get(holder.getAdapterPosition()).getEng());
         holder.word_mean.setText(wordList.get(holder.getAdapterPosition()).getKor());
+        if (wordList.get(holder.getAdapterPosition()).getCheckedState()){
+            holder.check.setImageResource(R.drawable.check_icon_onclick);
+            holder.checkChecked=true;
+        }
 
+        if (wordList.get(holder.getAdapterPosition()).getMyWordState()){
+            holder.myword.setImageResource(R.drawable.star_icon_onclick);
+            holder.mywordChecked=true;
+        }
+
+        holder.wordName =  wordList.get(holder.getAdapterPosition()).getEng();
         holder.itemView.setTag(holder.getAdapterPosition());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent (context, WordInfo.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("WORDINFO", wordList.get(holder.getAdapterPosition()).getEng());
                 intent.putExtra("table", day);
 
                 view.getContext().startActivity(intent);
-
             }
         });
-
-
 
     }
 
@@ -78,6 +92,11 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
         protected TextView word_mean;
         protected ImageButton check;
         protected ImageButton myword;
+        protected String wordName;
+
+        boolean checkChecked = false;
+        boolean mywordChecked = false;
+
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,15 +112,10 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
                     if (checkChecked){
                         check.setImageResource(R.drawable.check_icon);
                         checkChecked=false;
-                        manager.deleteWordFromChecked(context, "bear");
                     }
                     else {
                         check.setImageResource(R.drawable.check_icon_onclick);
                         checkChecked=true;
-
-                        manager.copyWordToChecked(context, "bear");
-
-
                     }
                 }
             });
@@ -113,10 +127,19 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
                     if (mywordChecked){
                         myword.setImageResource(R.drawable.star_icon);
                         mywordChecked=false;
+                        manager.deleteWordFromMyWord(context, wordName);
+                        if (day=="MYWORD"){
+                            ((FragmentActivity)context).getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.frame_layout, new MybookFragment()).addToBackStack("crop_type")
+                                            .commit();
+                            //getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new MybookFragment()).commit();
+                        }
                     }
                     else {
                         myword.setImageResource(R.drawable.star_icon_onclick);
                         mywordChecked=true;
+                        manager.copyWordToMyWord(context, wordName);
                     }
                 }
             });

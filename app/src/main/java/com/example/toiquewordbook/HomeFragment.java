@@ -75,12 +75,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     public int calcRate(Context context) {
-        DBQueryManager D1 = new DBQueryManager("DAY_1");
+        int sum=0, result=0;
+        /*DBQueryManager D1 = new DBQueryManager("DAY_1");
         DBQueryManager D2 = new DBQueryManager("DAY_2");
         DBQueryManager checked = new DBQueryManager("CHECKED");
 
         double sum = D1.getMaxWordId(context)+D2.getMaxWordId(context);
-        double result = checked.getMaxWordId(context)/(sum+checked.getMaxWordId(context));
+        double result = checked.getMaxWordId(context)/(sum+checked.getMaxWordId(context));*/
 
         return (int)(result*100);
 //        return checked.getMaxWordId(context);

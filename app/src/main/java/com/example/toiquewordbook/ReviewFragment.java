@@ -21,9 +21,9 @@ public class ReviewFragment extends Fragment {
     private TextView quizScore;
 
     private RecyclerView recyclerView;
-    private WordListAdapter adapter;
+    private Wordadapter adapter;
     private ArrayList<Word> list;
-    //private DBQueryManager wrongWordList = new DBQueryManager("CHECKED");
+    private DBQueryManager wrongWordList = new DBQueryManager("REVIEW");
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -35,14 +35,14 @@ public class ReviewFragment extends Fragment {
         ViewGroup v = (ViewGroup)inflater.inflate(R.layout.fragment_review,container, false);
         quizActivity = (QuizActivity) getActivity();
 
-        quizScore =  (TextView) v.findViewById(R.id.quizScore);
+        quizScore = v.findViewById(R.id.quizScore);
         quizScore.setText(quizActivity.score+"점");
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        recyclerView = v.findViewById(R.id.recyclerView_quiz);
 
-        //list = wrongWordList.getWordList(getContext());
+        list = wrongWordList.getWordList(getContext());
         recyclerView.setHasFixedSize(true);
-        adapter = new WordListAdapter(getActivity(), list);
+        adapter = new Wordadapter(list,"review", getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 

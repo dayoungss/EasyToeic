@@ -19,7 +19,7 @@
             android:layout_marginLeft="20dp"
             android:text="영어"
             android:textSize="16sp"
-            android:textColor="#000"/>
+            android:textColor="@color/icon_color"/>
 
         <TextView
             android:id="@+id/engpron"

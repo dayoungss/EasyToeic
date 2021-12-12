@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         // 바텀 네비게이션 클릭 리스너 설정
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
 
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
