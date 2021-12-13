@@ -50,6 +50,7 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
     public void onBindViewHolder(@NonNull Wordadapter.CustomViewHolder holder, int position) {
         holder.word.setText(wordList.get(holder.getAdapterPosition()).getEng());
         holder.word_mean.setText(wordList.get(holder.getAdapterPosition()).getKor());
+        holder.myWordDay = wordList.get(holder.getAdapterPosition()).getDay();
         if (wordList.get(holder.getAdapterPosition()).getCheckedState()){
             holder.check.setImageResource(R.drawable.check_icon_onclick);
             holder.checkChecked=true;
@@ -59,6 +60,7 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
             holder.myword.setImageResource(R.drawable.star_icon_onclick);
             holder.mywordChecked=true;
         }
+        Log.v("dbMYWORD", "wordadapter onbindview in "+day+" "+holder.wordName+ " "+holder.myWordDay+ " ");
 
         holder.wordName =  wordList.get(holder.getAdapterPosition()).getEng();
         holder.itemView.setTag(holder.getAdapterPosition());
@@ -94,6 +96,9 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
         protected ImageButton myword;
         protected String wordName;
 
+        // 나만의 단어장의 변경 내용 Day별 단어장에 전달하기 위함
+        protected int myWordDay;
+
         boolean checkChecked = false;
         boolean mywordChecked = false;
 
@@ -112,10 +117,12 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
                     if (checkChecked){
                         check.setImageResource(R.drawable.check_icon);
                         checkChecked=false;
+                        manager.updateCheckedTable(context, wordName, false);
                     }
                     else {
                         check.setImageResource(R.drawable.check_icon_onclick);
                         checkChecked=true;
+                        manager.updateCheckedTable(context, wordName, true);
                     }
                 }
             });
@@ -127,13 +134,12 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
                     if (mywordChecked){
                         myword.setImageResource(R.drawable.star_icon);
                         mywordChecked=false;
-                        manager.deleteWordFromMyWord(context, wordName);
+                        manager.deleteWordFromMyWord(context, wordName, myWordDay);
                         if (day=="MYWORD"){
                             ((FragmentActivity)context).getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.frame_layout, new MybookFragment()).addToBackStack("crop_type")
                                             .commit();
-                            //getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new MybookFragment()).commit();
                         }
                     }
                     else {

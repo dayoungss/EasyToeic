@@ -21,6 +21,7 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
 
     private ArrayList<dayData> arrayList;
     private Intent intent;
+    private DBQueryManager manager;
 
     public Dayadapter(Context context, ArrayList<dayData> arrayList) {
         this.arrayList = arrayList;
@@ -39,22 +40,19 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull Dayadapter.CustomViewHolder holder, int position) {
-        holder.day.setText(arrayList.get(position).getDayString());
-        //holder.dailyProgressBar.setProgress();
-        holder.itemView.setTag(position);
-        /*
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int pos = holder.getAdapterPosition();
-                if (pos != RecyclerView.NO_POSITION){
-                    Intent intent = new Intent (mContext, QuizActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    // 어떤 날짜의 퀴즈인지 퀴즈 액티비티에 넘겨야 함
-                    intent.putExtra("day", arrayList.get(pos).getDay());
-                view.getContext().startActivity(intent);
+        manager = new DBQueryManager(arrayList.get(position).getDayString());
 
-            }
-        });*/
+        int checkedCnt=manager.getCheckedCnt(mContext)*100;
+        int wordCnt=manager.getWordCnt(mContext);
+        int percent = checkedCnt/wordCnt;
+        Log.v("progress", "checkCnt"+position+" : "+ manager.getCheckedCnt(mContext)+" ");
+        Log.v("progress", "wordCnt "+position+": "+ manager.getWordCnt(mContext)+" ");
+        Log.v("progress", "percent "+position+": "+ percent);
+
+        holder.day.setText(arrayList.get(position).getDayString());
+        holder.itemView.setTag(position);
+        holder.dailyProgressBar.setProgress((int)percent);
+        holder.dailyProgressPercentage.setText(percent+"%");
     }
 
 
@@ -84,14 +82,12 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
         protected ProgressBar dailyProgressBar;
         protected TextView dailyProgressPercentage;
 
-
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.day=(TextView) itemView.findViewById(R.id.day);
             this.btn=(Button) itemView.findViewById(R.id.btn_quiz);
             this.dailyProgressBar = (ProgressBar) itemView.findViewById(R.id.daily_progressbar);
             this.dailyProgressPercentage=(TextView) itemView.findViewById(R.id.daily_progress_percentage);
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

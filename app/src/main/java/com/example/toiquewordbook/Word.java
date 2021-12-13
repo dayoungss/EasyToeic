@@ -1,8 +1,10 @@
 package com.example.toiquewordbook;
 
+import android.util.Log;
+
 public class Word {
 
-    int _id;
+    int day;
     String eng;
     String kor;
     String engpron;
@@ -10,8 +12,8 @@ public class Word {
     int checked;
     int myword;
 
-    public Word(int _id, String eng, String engpron, String kor, String sentence, int checked, int myword) {
-        this._id = _id;
+    public Word(int day, String eng, String engpron, String kor, String sentence, int checked, int myword) {
+        this.day = day;
         this.eng = eng;
         this.kor = kor;
         this.engpron = engpron;
@@ -20,12 +22,12 @@ public class Word {
         this.myword = myword;
     }
 
-    public int get_id() {
-        return _id;
+    public int getDay() {
+        return day;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public String getEng() {

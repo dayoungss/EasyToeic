@@ -121,6 +121,7 @@ public class ExamFragment extends Fragment {
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btNext.setEnabled(false);
                 checkAnswer();
 
                 Handler mHandler = new Handler();
@@ -135,6 +136,8 @@ public class ExamFragment extends Fragment {
                             bt[i].setBackgroundResource(R.drawable.selector_pressed);
                         }
                         btPressed=0;
+                        btNext.setEnabled(true);
+
                         mHandler.sendEmptyMessage(0);	// 실행이 끝난후 알림
                     }
                 }, 1000);
@@ -149,6 +152,7 @@ public class ExamFragment extends Fragment {
         btEnd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                btEnd.setEnabled(false);
                 checkAnswer();
                 Handler mHandler = new Handler();
                 new Handler().postDelayed(new Runnable() {// 1 초 후에 실행

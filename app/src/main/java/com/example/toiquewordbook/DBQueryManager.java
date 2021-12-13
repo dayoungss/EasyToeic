@@ -42,25 +42,32 @@ public class DBQueryManager {
             output+="''";
         }
 
-        String query = "INSERT INTO MYWORD(eng, engpron, kor, sentence, checked, myword) VALUES ('"+word.getEng()+"', '"+word.getEngpron()+"', '"+word.getKor()+"', '"+output+"', "+word.getCheckedState()+", "+1+")";
-        Log.v("myword", "INSERTED " + word.getEng());
-
+        String query = "INSERT INTO MYWORD VALUES ("+word.day+",'"+word.getEng()+"', '"+word.getEngpron()+"', '"+word.getKor()+"', '"+output+"', "+word.getCheckedState()+", "+1+")";
         db.execSQL(query);
+        String query2 = "UPDATE "+TABLE+" SET myword = "+1+" WHERE eng='"+eng+"'";
+        db.execSQL(query2);
+        db.close();
     }
 
-    public void deleteWordFromMyWord(Context context, String eng) {
+    public void deleteWordFromMyWord(Context context, String eng, int myWordDay) {
         DBOpenHelper dbHelper = new DBOpenHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String query = "DELETE FROM MYWORD WHERE eng = '"+eng+"'";
 
+        String strFilter = "eng = '" + eng+"'";
+        String DAYTABLE = "DAY_"+myWordDay;
+        Log.v("dbMYWORD", DAYTABLE);
+        String query = "UPDATE "+DAYTABLE+" SET myword = "+0+" WHERE eng='"+eng+"'";
+        db.delete("MYWORD", strFilter, null);
         db.execSQL(query);
+        //String query = "DELETE FROM MYWORD WHERE eng = '"+eng+"'";
+        db.close();
     }
 
     public ArrayList<Word> getWordList(Context context) {
         ArrayList<Word> resultList = new ArrayList<>();
 
         DBOpenHelper dbHelper = new DBOpenHelper(context);
-        String query = "SELECT _id, eng, engpron, kor, sentence, checked, myword FROM " + TABLE + " ORDER BY eng ";
+        String query = "SELECT day, eng, engpron, kor, sentence, checked, myword FROM " + TABLE + " ORDER BY eng ";
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         try {
@@ -90,18 +97,19 @@ public class DBQueryManager {
             ContentValues row = new ContentValues();
 
             int id = 0;
-            if (word._id > 0) {
-                id = word._id;
+            if (word.day > 0) {
+                id = word.day;
             } else {
 
             id = getMaxWordId(context)+1;
             }
 
-            row.put("_id", id);
+            row.put("day", id);
             row.put("eng", word.eng);
             row.put("kor", word.kor);
 
             db.insert(TABLE, null, row);
+            db.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,12 +131,13 @@ public class DBQueryManager {
 
             int id = getMaxWordId(context)+1;
 
-            row.put("_id", id);
+            row.put("day", word.day);
             row.put("eng", word.eng);
             row.put("kor", word.kor);
 
-            String strFilter = "_id = " + word._id;
+            String strFilter = "eng = '" + word.eng+"'";
             db.update(TABLE, row, strFilter, null);
+            db.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,9 +151,10 @@ public class DBQueryManager {
 
         try {
             SQLiteDatabase db = dbHelper.getWritableDatabase();
-            String strFilter = "_id = " + word._id;
+            String strFilter = "eng = '" + word.eng+"'";
 
             db.delete(TABLE, strFilter, null);
+            db.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,11 +167,12 @@ public class DBQueryManager {
         DBOpenHelper dbHelper = new DBOpenHelper(context);
         try {
             SQLiteDatabase db = dbHelper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT MAX(_id) FROM " + TABLE, null);
+            Cursor cursor = db.rawQuery("SELECT count(*) FROM " + TABLE, null);
 
             while (cursor.moveToNext()) {
                 result = cursor.getInt(0);
             }
+            db.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,7 +188,7 @@ public class DBQueryManager {
 
         DBOpenHelper dbHelper = new DBOpenHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT _id, eng, engpron, kor, sentence, checked, myword FROM ";
+        String query = "SELECT day, eng, engpron, kor, sentence, checked, myword FROM ";
         Cursor cursor = db.rawQuery(query + TABLE, null);
         Word word=null;
 
@@ -191,6 +202,7 @@ public class DBQueryManager {
                         cursor.getInt(5),
                         cursor.getInt(6));
                 dbHelper.close();
+                db.close();
             }
         }
 
@@ -201,9 +213,8 @@ public class DBQueryManager {
         DBOpenHelper dbHelper = new DBOpenHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete("REVIEW", null, null);
-        //String query = "ALTER TABLE review AUTO_INCREMENT=1001;";
-        //db.execSQL(query);
         db.close();
+        dbHelper.close();
     }
 
     public void copyWordToReview(Context context, String eng) {
@@ -212,6 +223,7 @@ public class DBQueryManager {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         word = getSameEngWord(context, eng);
 
+        // 영어 예문에 작은따옴표가 있으면 sql 에러가 생기기 때문에 작은따옴표 2개로 고친다
         String input = word.getSentence();
         String[] array = input.split("'");
         String output="";
@@ -223,6 +235,51 @@ public class DBQueryManager {
         String query = "INSERT INTO REVIEW(eng, engpron, kor, sentence, checked, myword) VALUES ('"+word.getEng()+"', '"+word.getEngpron()+"', '"+word.getKor()+"', '"+output+"', "+word.getCheckedState()+", "+word.getMyWordState()+")";
 
         db.execSQL(query);
+        db.close();
+        dbHelper.close();
+    }
+
+    public int getWordCnt(Context context){
+        int result = 0;
+        DBOpenHelper dbHelper = new DBOpenHelper(context);
+        try {
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            Cursor cursor = db.rawQuery("select count(*) from " + TABLE, null);
+            cursor.moveToFirst();
+            result = cursor.getInt(0);
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dbHelper.close();
+        return result;
+    }
+
+    public int getCheckedCnt(Context context){
+        int result = 0;
+        DBOpenHelper dbHelper = new DBOpenHelper(context);
+        try {
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            Cursor cursor = db.rawQuery("select count(*) from " + TABLE + " where checked=1", null);
+            cursor.moveToFirst();
+            result = cursor.getInt(0);
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dbHelper.close();
+        return result;
+    }
+
+    public void updateCheckedTable(Context context, String eng, boolean checkChecked){
+        Word word;
+        DBOpenHelper dbHelper = new DBOpenHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        word = getSameEngWord(context, eng);
+        String query = "UPDATE "+TABLE+" SET checked = "+checkChecked+" WHERE eng='"+eng+"'";
+        db.execSQL(query);
+        db.close();
+        dbHelper.close();
     }
 
 }

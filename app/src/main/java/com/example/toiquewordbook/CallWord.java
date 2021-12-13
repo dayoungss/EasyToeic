@@ -1,8 +1,10 @@
 package com.example.toiquewordbook;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +25,14 @@ public class CallWord extends Activity {
     private Intent putIntent;
     private String day;
 
+    private Context mContext;
+
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_callwords);
 
-
+        mContext=getApplicationContext();
         getIntent = getIntent();// 인텐트 받아오기
         day = getIntent.getStringExtra("day");
         getIntent= new Intent (this, Wordadapter.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
