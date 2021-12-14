@@ -7,13 +7,19 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CallWord extends Activity {
+public class CallWord extends Fragment {
     private RecyclerView recyclerView;
     private Wordadapter wordAdapter;
     private ArrayList<Word> arrayList;
@@ -29,50 +35,38 @@ public class CallWord extends Activity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
-    public void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.v("callword", "class start");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_callwords);
+        View v = inflater.inflate(R.layout.activity_callwords,container,false);
+        mContext=getContext();
+        Log.v("callword", "getContext");
 
-        //기본 SharedPreferences 환경과 관련된 객체를 얻어옵니다.
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // SharedPreferences 수정을 위한 Editor 객체를 얻어옵니다.
-        editor = preferences.edit();
 
-        if (preferences.getBoolean("mode",false)){
-            //dark mode
-            Log.v("MODE", "CallWord dark mode");
-            themeColor = ThemeUtil.DARK_MODE;
-            ThemeUtil.applyTheme(themeColor);
-            ThemeUtil.modSave(getApplicationContext(),themeColor);
-        }else{
-            //light mode
-            Log.v("MODE", "CallWord light mode");
-            themeColor = ThemeUtil.LIGHT_MODE;
-            ThemeUtil.applyTheme(themeColor);
-            ThemeUtil.modSave(getApplicationContext(),themeColor);
-        }
-
-        mContext=getApplicationContext();
-        getIntent = getIntent();// 인텐트 받아오기
-        day = getIntent.getStringExtra("day");
-        getIntent= new Intent (this, Wordadapter.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //getIntent = getIntent();// 인텐트 받아오기
+        day = getArguments().getString("day");
+        getIntent= new Intent (mContext, Wordadapter.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getIntent.putExtra("day", day);
+        Log.v("callword", day + " <- intent");
+
 
         //어떤 단어를 넘기는지 알려야함.
         arrayList = new ArrayList<>();
 
         DBQueryManager manager = new DBQueryManager(day);
-        arrayList = manager.getWordList(this);
+        arrayList = manager.getWordList(mContext);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = v.findViewById(R.id.recyclerView);
 
-        linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)) ;
+        linearLayoutManager = new LinearLayoutManager(mContext);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext)) ;
 
-        wordAdapter = new Wordadapter(arrayList, day,this);
+        wordAdapter = new Wordadapter(arrayList, day,mContext);
         recyclerView.setAdapter(wordAdapter);
+        Log.v("callword", "callword class over");
 
+        return v;
     }
 
 }

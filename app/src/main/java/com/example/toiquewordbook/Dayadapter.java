@@ -46,9 +46,6 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
         int checkedCnt=manager.getCheckedCnt(mContext)*100;
         int wordCnt=manager.getWordCnt(mContext);
         int percent = checkedCnt/wordCnt;
-        Log.v("progress", "checkCnt"+position+" : "+ manager.getCheckedCnt(mContext)+" ");
-        Log.v("progress", "wordCnt "+position+": "+ manager.getWordCnt(mContext)+" ");
-        Log.v("progress", "percent "+position+": "+ percent);
 
         holder.day.setText(arrayList.get(position).getDayString());
         holder.itemView.setTag(position);
@@ -97,16 +94,22 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
                     Handler mHandler = new Handler();
                     Thread goWordList = new Thread("Go Word List Thread"){
                         public void run(){
+                            Log.v("callword", "Dayadapter");
                             int pos = getAdapterPosition();
                             if (pos != RecyclerView.NO_POSITION){
                                 Intent intent = new Intent (mContext, CallWord.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 // 어떤 날짜의 단어장 인텐트로 전달
                                 intent.putExtra("day", arrayList.get(pos).getDayString());
-                                mContext.startActivity(intent);
+
+                                //mContext.startActivity(intent);
+                                Log.v("callword", "Dayadapter");
+
                             }
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    MainActivity m = new MainActivity();
+                                    m.goToCallWord();
                                 }
                             });
 

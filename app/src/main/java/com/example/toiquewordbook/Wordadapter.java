@@ -55,8 +55,6 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
             holder.myword.setImageResource(R.drawable.star_icon_onclick);
             holder.mywordChecked=true;
         }
-        Log.v("dbMYWORD", "wordadapter onbindview in "+day+" "+holder.wordName+ " "+holder.myWordDay+ " ");
-
 
         holder.wordName =  wordList.get(holder.getAdapterPosition()).getEng();
         holder.itemView.setTag(holder.getAdapterPosition());
