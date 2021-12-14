@@ -196,7 +196,7 @@ public class ExamFragment extends Fragment {
         Handler mHandler = new Handler();
         Thread makeQuestionThread = new Thread("Make a Question Thread"){
             public void run(){
-/********이 아래 코드 변경*************/
+                /********이 아래 코드 변경*************/
 
                 // DB에서 _id순? 알파벳순 순차 단어 선택
                 question=wordArrayList.get(cnt-2).getEng();

@@ -18,7 +18,6 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
-
     ImageButton back_btn;
     Switch mode_switch;
     String themeColor;

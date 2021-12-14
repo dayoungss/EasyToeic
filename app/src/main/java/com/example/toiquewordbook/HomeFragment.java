@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
     public boolean notify=false;
@@ -27,6 +29,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private TextView daily_meaning; // 홈화면 오늘의 영단어 뜻
     private ProgressBar total_progressbar; // 홈화면 학습진행율
     private TextView progress_percentage; // 홈화면 학습진행율 텍스트뷰
+
+    private Random random = new Random();
+    private DBQueryManager manager;
 
     public HomeFragment(){
 
@@ -48,7 +53,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         total_progressbar = (ProgressBar) v.findViewById(R.id.total_progressbar);
         progress_percentage = (TextView) v.findViewById(R.id.progress_percentage);
 
-        setDailyWord();
+        setDaily();
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +77,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     // 오늘의 단어 (영어, 뜻) 설정
-    public void setDailyWord(){
-        daily_word.setText("Apple");
+    public void setDaily(){
+        int dayN = random.nextInt(6)+1;
+        manager = new DBQueryManager("DAY_"+dayN);
+        Word target = manager.getRandomWord(getContext());
+        daily_word.setText(target.getEng());
+        daily_meaning.setText(target.getKor());
     }
 
     // 전체 학습률 설정

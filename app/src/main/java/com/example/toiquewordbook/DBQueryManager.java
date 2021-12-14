@@ -29,6 +29,24 @@ public class DBQueryManager {
         return mean;
     }
 
+    public Word getRandomWord(Context context){
+        Word word;
+        DBOpenHelper dbHelper = new DBOpenHelper(context);
+        String query = "SELECT * FROM "+TABLE + " ORDER BY RANDOM() LIMIT 1";
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToNext();
+        word = new Word(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getInt(5),
+                        cursor.getInt(6));
+        return word;
+    }
+
     public void copyWordToMyWord(Context context, String eng) {
         Word word;
         DBOpenHelper dbHelper = new DBOpenHelper(context);

@@ -50,6 +50,11 @@ public class MybookFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onClick(View view) {
 
     }

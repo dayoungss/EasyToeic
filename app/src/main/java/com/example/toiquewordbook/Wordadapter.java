@@ -1,10 +1,7 @@
 package com.example.toiquewordbook;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -42,7 +36,7 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
     @Override
     public Wordadapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_worditem,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.worditem,parent,false);
         CustomViewHolder holder = new CustomViewHolder(view);
         return holder;
     }
@@ -84,6 +78,11 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
     public void setWordList(ArrayList<Word> list){
         this.wordList = list;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override

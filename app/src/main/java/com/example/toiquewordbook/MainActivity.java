@@ -12,7 +12,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-
     // 프래그먼트 객체 선언
     Fragment wordbookFragment= new WordbookFragment();
     Fragment homeFragment = new HomeFragment();
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
                         return  true;
                     case  R.id.tab3:
-                        title.setImageResource(R.drawable.mybook_title);
+                        title.setImageResource(R.drawable.title);
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, mybookFragment).commitAllowingStateLoss();
                         return  true;
                     default:

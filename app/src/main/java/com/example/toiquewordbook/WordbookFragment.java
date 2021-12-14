@@ -1,14 +1,19 @@
 package com.example.toiquewordbook;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +28,7 @@ public class WordbookFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
-
+    boolean check = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,8 +36,6 @@ public class WordbookFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_wordbook,container,false);
 
         super.onCreate(savedInstanceState);
-
-
 
         recyclerView=(RecyclerView) v.findViewById(R.id.rv);
         linearLayoutManager= new LinearLayoutManager(getActivity());
@@ -44,14 +47,28 @@ public class WordbookFragment extends Fragment {
             arrayList.add(new dayData(i));
         }
 
-
         dayadapter=new com.example.toiquewordbook.Dayadapter(getContext(),arrayList);
 
         recyclerView.setAdapter(dayadapter);
-
 
         return v;
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (check){
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, new WordbookFragment()).addToBackStack("crop_type")
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        check=true;
+    }
 }
