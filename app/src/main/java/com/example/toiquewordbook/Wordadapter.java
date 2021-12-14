@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,18 +63,20 @@ public class Wordadapter extends RecyclerView.Adapter<Wordadapter.CustomViewHold
         }
         Log.v("dbMYWORD", "wordadapter onbindview in "+day+" "+holder.wordName+ " "+holder.myWordDay+ " ");
 
+
         holder.wordName =  wordList.get(holder.getAdapterPosition()).getEng();
         holder.itemView.setTag(holder.getAdapterPosition());
+               //단어 상세화면으로 이동
         holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+              @Override
+              public void onClick(View view) {
 
-                Intent intent = new Intent (context, WordInfo.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("WORDINFO", wordList.get(holder.getAdapterPosition()).getEng());
-                intent.putExtra("table", day);
+                  Intent intent = new Intent (context, WordInfo.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                  intent.putExtra("WORDINFO", wordList.get(holder.getAdapterPosition()).getEng());
+                  intent.putExtra("table", day);
+                  view.getContext().startActivity(intent);
 
-                view.getContext().startActivity(intent);
-            }
+              }
         });
 
     }

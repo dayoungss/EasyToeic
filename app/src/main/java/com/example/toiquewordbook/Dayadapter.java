@@ -2,6 +2,7 @@ package com.example.toiquewordbook;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,16 +89,31 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
             this.btn=(Button) itemView.findViewById(R.id.btn_quiz);
             this.dailyProgressBar = (ProgressBar) itemView.findViewById(R.id.daily_progressbar);
             this.dailyProgressPercentage=(TextView) itemView.findViewById(R.id.daily_progress_percentage);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int pos = getAdapterPosition();
-                    if (pos != RecyclerView.NO_POSITION){
-                        Intent intent = new Intent (mContext, CallWord.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        // 어떤 날짜의 단어장인지 넘겨야 함
-                        intent.putExtra("day", arrayList.get(pos).getDayString());
-                        mContext.startActivity(intent);
-                    }
+                    Handler mHandler = new Handler();
+                    Thread goWordList = new Thread("Go Word List Thread"){
+                        public void run(){
+                            int pos = getAdapterPosition();
+                            if (pos != RecyclerView.NO_POSITION){
+                                Intent intent = new Intent (mContext, CallWord.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                // 어떤 날짜의 단어장 인텐트로 전달
+                                intent.putExtra("day", arrayList.get(pos).getDayString());
+                                mContext.startActivity(intent);
+                            }
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                }
+                            });
+
+                        }
+                    };
+                    goWordList.start();
+
                 }
             });
 
@@ -106,16 +122,26 @@ public class Dayadapter extends RecyclerView.Adapter<Dayadapter.CustomViewHolder
                 // 퀴즈 액티비티로 이동하는 함수
                 @Override
                 public void onClick(View view) {
-                    int pos = getAdapterPosition();
-                    if (pos != RecyclerView.NO_POSITION){
-                        Intent intent = new Intent (mContext, QuizActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        // 어떤 날짜의 퀴즈인지 퀴즈 액티비티에 넘겨야 함
-                        intent.putExtra("day", arrayList.get(pos).getDay());
-                        mContext.startActivity(intent);
-                    }
+                    Handler mHandler = new Handler();
+                    Thread goQuiz = new Thread("Go to Quiz Thread"){
+                        public void run(){
+                            int pos = getAdapterPosition();
+                            if (pos != RecyclerView.NO_POSITION){
+                                Intent intent = new Intent (mContext, QuizActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                // 어떤 날짜의 퀴즈인지 퀴즈 액티비티에 넘겨야 함
+                                intent.putExtra("day", arrayList.get(pos).getDay());
+                                mContext.startActivity(intent);
+                            }
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                }
+                            });
 
-                    //Intent intent = new Intent(getActivity(), QuizActivity.class);
-                    //startActivity(intent);
+                        }
+                    };
+                    goQuiz.start();
+
                 }
             }
             );

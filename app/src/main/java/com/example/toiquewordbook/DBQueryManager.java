@@ -42,6 +42,7 @@ public class DBQueryManager {
             output+="''";
         }
 
+        // MYWORD table에 단어 추가하고, DAY table에서도 myword 변수값을 바꿔준다
         String query = "INSERT INTO MYWORD VALUES ("+word.day+",'"+word.getEng()+"', '"+word.getEngpron()+"', '"+word.getKor()+"', '"+output+"', "+word.getCheckedState()+", "+1+")";
         db.execSQL(query);
         String query2 = "UPDATE "+TABLE+" SET myword = "+1+" WHERE eng='"+eng+"'";
@@ -58,8 +59,8 @@ public class DBQueryManager {
         Log.v("dbMYWORD", DAYTABLE);
         String query = "UPDATE "+DAYTABLE+" SET myword = "+0+" WHERE eng='"+eng+"'";
         db.delete("MYWORD", strFilter, null);
-        db.execSQL(query);
         //String query = "DELETE FROM MYWORD WHERE eng = '"+eng+"'";
+        db.execSQL(query);
         db.close();
     }
 
@@ -272,12 +273,27 @@ public class DBQueryManager {
     }
 
     public void updateCheckedTable(Context context, String eng, boolean checkChecked){
-        Word word;
+        Word word= getSameEngWord(context, eng);
         DBOpenHelper dbHelper = new DBOpenHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        word = getSameEngWord(context, eng);
+        String strFilter = "eng = '" + eng+"'";
+
+        if (TABLE=="MYWORD") {
+            //나만의 단어장에서 체크 변경했으면 Day의 같은 단어도 찾아서 바꿔줘야 한다
+            String DAYTABLE = "DAY_" + word.day;
+            String query = "UPDATE " + DAYTABLE + " SET checked = " + checkChecked + " WHERE eng='" + eng + "'";
+            db.execSQL(query);
+        }else {
+            // Day에서 체크 변경했으면 즐겨찾기에 같은 단어가 있는지 확인하고 바꾼다
+            if (word.getMyWordState()){
+                String query = "UPDATE MYWORD SET checked = "+checkChecked+" WHERE eng='"+eng+"'";
+                db.execSQL(query);
+            }
+        }
+        // MYWORD, Day table의 공통 부분 (자기 자신 테이블의 checked값 변경)
         String query = "UPDATE "+TABLE+" SET checked = "+checkChecked+" WHERE eng='"+eng+"'";
         db.execSQL(query);
+
         db.close();
         dbHelper.close();
     }

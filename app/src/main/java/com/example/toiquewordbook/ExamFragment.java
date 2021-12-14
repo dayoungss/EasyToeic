@@ -193,32 +193,46 @@ public class ExamFragment extends Fragment {
             btEnd.setVisibility(View.VISIBLE);
         }
 
-        /********이 아래 코드 변경*************/
+        Handler mHandler = new Handler();
+        Thread makeQuestionThread = new Thread("Make a Question Thread"){
+            public void run(){
+/********이 아래 코드 변경*************/
 
-        // DB에서 _id순? 알파벳순 순차 단어 선택
-        question=wordArrayList.get(cnt-2).getEng();
-        answer=wordArrayList.get(cnt-2).getKor();
-        /*********************/
+                // DB에서 _id순? 알파벳순 순차 단어 선택
+                question=wordArrayList.get(cnt-2).getEng();
+                answer=wordArrayList.get(cnt-2).getKor();
+                /*********************/
 
 
 
-        Random rand = new Random();
-        answerIndex = rand.nextInt(3)+1; //1,2,3중 1개 랜덤
+                Random rand = new Random();
+                answerIndex = rand.nextInt(3)+1; //1,2,3중 1개 랜덤
 
-        choice[answerIndex]=answer;
-        choice[intFilter(answerIndex+1)]="tmp";
-        choice[intFilter(answerIndex+2)]="tmp";
+                choice[answerIndex]=answer;
+                choice[intFilter(answerIndex+1)]="tmp";
+                choice[intFilter(answerIndex+2)]="tmp";
 
-        for(int i=1; i<=3; i++) {
-            if (!choice[i].equals(answer)) {
-                choice[i] = DBQueryManager.getRandomMeans(mcontext);
+                for(int i=1; i<=3; i++) {
+                    if (!choice[i].equals(answer)) {
+                        choice[i] = DBQueryManager.getRandomMeans(mcontext);
+                    }
+                }
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        quiz_question.setText(question);
+                        bt[1].setText(choice[1]);
+                        bt[2].setText(choice[2]);
+                        bt[3].setText(choice[3]);
+                    }
+                });
+
             }
-        }
+        };
+        makeQuestionThread.start();
 
-        quiz_question.setText(question);
-        bt[1].setText(choice[1]);
-        bt[2].setText(choice[2]);
-        bt[3].setText(choice[3]);
+
     }
 
     public boolean checkAnswer (){
